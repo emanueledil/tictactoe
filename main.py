@@ -22,8 +22,11 @@ def main():
         print(f"##### {player_mark.value}'s turn #####")
         move = get_player_input()
         board.put_mark_by_digit(move, player_mark)
-        board.check_winner()
+        win = board.check_winner()
         board.display()
+        if win:
+            print(f"##### {player_mark.value} wins! #####")
+            break
         x_player_turn = not x_player_turn
 
 
