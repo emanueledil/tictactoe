@@ -33,6 +33,9 @@ def main():
         place_mark(board, player_mark)
         win = board.check_winner()
         board.display()
+        if board.is_full() and not win:
+            print("##### It's a draw! #####")
+            break
         if win:
             print(f"##### {player_mark.value} wins! #####")
             break
