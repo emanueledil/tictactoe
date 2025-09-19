@@ -63,13 +63,8 @@ class Board:
         return False
 
     def _is_column_winner(self, col_index: int, mark: MARK):
-        output_col = []
         for row in self._board:
-            output_col.append(row[col_index])
-        if output_col.count(mark) == 3:
-            [self._put_mark(MAP_WIN.get(mark), i, col_index) for i in range(3)]
-            return True
-        return False
-
-
-
+            if row[col_index] != mark:
+                return False
+        [self._put_mark(MAP_WIN.get(mark), i, col_index) for i in range(3)]
+        return True
