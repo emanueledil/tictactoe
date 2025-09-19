@@ -7,25 +7,25 @@ class Board:
         self.clean_board()
 
     def clean_board(self):
-        self.board = [[MARK.EMPTY for _ in range(3)] for _ in range(3)]
+        self._board = [[MARK.EMPTY for _ in range(3)] for _ in range(3)]
 
     def display(self):
-        for row in self.board:
+        for row_index, row in enumerate(self._board):
             print("|".join(mark.value for mark in row))
-            print("-" * 5)
-        print("#"*10)    
+            if row_index<2:
+                print("-" * 5)  
 
     def put_mark_by_digit(self, digit: int, mark: MARK)-> bool:
         row, col = DIGITS_TO_POSITION.get(digit, None)
         if row is None or col is None:
             return False
-        if self.board[row][col] != MARK.EMPTY:
+        if self._board[row][col] != MARK.EMPTY:
             return False
         self._put_mark(mark, row, col)
         return True
 
     def _put_mark(self, mark: MARK, row: int, col: int)-> bool:
-        self.board[row][col] = mark
+        self._board[row][col] = mark
 
 
     def check_winner(self):
@@ -39,7 +39,7 @@ class Board:
         return False
                 
     def _check_win_horizontal(self, mark: MARK):
-        for row_index, row in enumerate(self.board):
+        for row_index, row in enumerate(self._board):
             if row.count(mark) == 3:
                 [self._put_mark(MAP_WIN.get(mark), row_index, i) for i in range(3)]
                 return True
@@ -52,11 +52,11 @@ class Board:
         return False
     
     def _check_win_diagonal(self, mark: MARK):
-        main_diagonal = [self.board[i][i] for i in range(3)]
+        main_diagonal = [self._board[i][i] for i in range(3)]
         if main_diagonal.count == 3:
             [self._put_mark(MAP_WIN.get(mark), i, i)  for i in range(3)]
             return True
-        anti_diagonal = [self.board[i][2-i] for i in range(3)]
+        anti_diagonal = [self._board[i][2-i] for i in range(3)]
         if anti_diagonal.count == 3:
             [self._put_mark(MAP_WIN.get(mark), i, 2-i)  for i in range(3)]
             return True
@@ -64,7 +64,7 @@ class Board:
 
     def _is_column_winner(self, col_index: int, mark: MARK):
         output_col = []
-        for row in self.board:
+        for row in self._board:
             output_col.append(row[col_index])
         if output_col.count(mark) == 3:
             [self._put_mark(MAP_WIN.get(mark), i, col_index) for i in range(3)]
