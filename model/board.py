@@ -66,11 +66,11 @@ class Board:
     def _check_win_diagonal(self, mark: MARK):
         """Check both diagonals for a win."""
         main_diagonal = [self._board[i][i] for i in range(3)]
-        if main_diagonal.count == 3:
+        if main_diagonal.count(mark) == 3:
             [self._put_mark(MAP_WIN.get(mark), i, i)  for i in range(3)]
             return True
         anti_diagonal = [self._board[i][2-i] for i in range(3)]
-        if anti_diagonal.count == 3:
+        if anti_diagonal.count(mark) == 3:
             [self._put_mark(MAP_WIN.get(mark), i, 2-i)  for i in range(3)]
             return True
         return False
