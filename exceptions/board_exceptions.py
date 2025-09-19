@@ -1,0 +1,2 @@
+class BoxAlreadyFilled(Exception):
+    pass

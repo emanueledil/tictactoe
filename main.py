@@ -1,3 +1,4 @@
+from exceptions.board_exceptions import BoxAlreadyFilled
 from model.board import Board
 from model.mark import MARK
 
@@ -12,6 +13,15 @@ def get_player_input()-> int:
         except ValueError:
             print("Only numbers from 1 to 9 are allowed")
 
+def place_mark(board: Board, mark: MARK):
+    while True:
+        try:
+            move = get_player_input()
+            board.put_mark_by_digit(move, mark)
+            break
+        except BoxAlreadyFilled:
+            print("Box already filled, choose another one")
+
 def main():
     board = Board()
     board.display()
@@ -20,8 +30,7 @@ def main():
     while True:
         player_mark = MARK.X if x_player_turn else MARK.O
         print(f"##### {player_mark.value}'s turn #####")
-        move = get_player_input()
-        board.put_mark_by_digit(move, player_mark)
+        place_mark(board, player_mark)
         win = board.check_winner()
         board.display()
         if win:

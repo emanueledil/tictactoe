@@ -1,4 +1,5 @@
 
+from exceptions.board_exceptions import BoxAlreadyFilled
 from model.mark import MAP_WIN, MARK
 from constants import DIGITS_TO_POSITION
 
@@ -20,7 +21,7 @@ class Board:
         if row is None or col is None:
             return False
         if self._board[row][col] != MARK.EMPTY:
-            return False
+            raise BoxAlreadyFilled()
         self._put_mark(mark, row, col)
         return True
 
