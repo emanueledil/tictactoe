@@ -5,6 +5,14 @@ It's a tictactoe CLI game in which the user can input the position of the marker
 
 When a win is detected, the marked signs of the winner are changed (x->#, o->@) to signal the winning position
 
+## Requirements
+```bash
+python3 -m venv .env
+source .env/bin/activate
+pip install -r requirements.txt
+```
+
+
 ## How to run 
 
 `python3 main.py`
@@ -20,3 +28,9 @@ The exceptions are kept in a separated folder
 The Board class is the main component of this repo. It manages logic, rendering and user input.
 The rest of the logic is handled in the main function, with a loop that alternates between the inputs of the two players, which are represented by an enum for their marker sign. In case of victory the enum is mapped to a different sign, to signal it.
 At the base of the repo, in the constants file, a map for the board position from the numeric input is provided
+
+## Tests
+```bash
+source .env/bin/activate
+pytest .
+```
